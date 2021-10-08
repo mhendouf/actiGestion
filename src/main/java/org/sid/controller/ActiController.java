@@ -17,6 +17,7 @@ import org.sid.entity.Passage;
 import org.sid.exception.RessourceNotFoundException;
 import org.sid.repository.ActiRepository;
 import org.sid.repository.PassageRepository;
+import org.sid.service.ActiRapport;
 import org.sid.service.ExportActiPdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,6 +45,8 @@ public class ActiController {
 	ActiRepository actiRepository;
 	@Autowired
 	ExportActiPdf exportPdfService;
+	@Autowired
+	ActiRapport actiRapport;
 	@Autowired
 	PassageRepository passageRepository;
 
@@ -179,8 +183,6 @@ public class ActiController {
 
 	@PutMapping("/acti/pdf")
 	public ResponseEntity<InputStreamResource> exportPdf(@RequestBody List<Acti> actis) {
-		for (Acti s : actis) {
-		}
 		ByteArrayInputStream bais = exportPdfService.actiPDFreport ( actis );
 		HttpHeaders headers = new HttpHeaders ( );
 		headers.add ( "Content-Disposition" , "filename=Actis.pdf" );
@@ -192,5 +194,28 @@ public class ActiController {
 	public List<Acti> getAllActisBenevole(@PathVariable(value = "idBenevole") Long idBenevole) {
 		// List<Acti> listActi = actiRepository.findByIdBenevole ( idBenevole );
 		return actiRepository.findAll ( );
+	}
+
+	@PutMapping("/acti/rapport")
+	public ResponseEntity<InputStreamResource> ActiRapport(@RequestParam("nomresponsable") String nomresponsable,
+			@RequestParam("nomeduc") String nomeduc, @RequestParam("yearrapport") String yearrapport,
+			HttpServletRequest request) {
+		String jwt = request.getHeader ( SecurityConstants.HEADER_STRING );
+		Object principal = SecurityContextHolder.getContext ( ).getAuthentication ( ).getPrincipal ( );
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername ( );
+		} else {
+			username = principal.toString ( );
+		}
+		System.out.println ( nomeduc );
+		Date d = new Date ( "01/01/" + yearrapport );
+		System.out.println ( d );
+		List<Acti> actis = actiRepository.findByYear ( d , username );
+		ByteArrayInputStream bais = actiRapport.actiPDFreport ( actis , nomresponsable , nomeduc , yearrapport );
+		HttpHeaders headers = new HttpHeaders ( );
+		headers.add ( "Content-Disposition" , "filename=Actis.pdf" );
+		return ResponseEntity.ok ( ).headers ( headers ).contentType ( MediaType.APPLICATION_PDF )
+				.body ( new InputStreamResource ( bais ) );
 	}
 }

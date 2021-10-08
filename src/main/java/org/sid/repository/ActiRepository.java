@@ -1,5 +1,6 @@
 package org.sid.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.sid.entity.Acti;
@@ -22,4 +23,7 @@ public interface ActiRepository extends JpaRepository<Acti, Long> {
 
 	@Query(value = "SELECT acti FROM Acti acti where acti.id_user LIKE %?1% ORDER BY date_acti DESC")
 	List<Acti> findByIdUser(String id_user);
+
+	@Query(value = "SELECT acti FROM Acti acti where acti.id_user = :id_user AND YEAR(acti.date_acti)= YEAR(:d) ORDER BY date_acti DESC")
+	List<Acti> findByYear(Date d, String id_user);
 }
