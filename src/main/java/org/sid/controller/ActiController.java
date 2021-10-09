@@ -208,9 +208,7 @@ public class ActiController {
 		} else {
 			username = principal.toString ( );
 		}
-		System.out.println ( nomeduc );
 		Date d = new Date ( "01/01/" + yearrapport );
-		System.out.println ( d );
 		List<Acti> actis = actiRepository.findByYear ( d , username );
 		ByteArrayInputStream bais = actiRapport.actiPDFreport ( actis , nomresponsable , nomeduc , yearrapport );
 		HttpHeaders headers = new HttpHeaders ( );
