@@ -200,6 +200,7 @@ public class ActiController {
 	public ResponseEntity<InputStreamResource> ActiRapport(@RequestParam("nomresponsable") String nomresponsable,
 			@RequestParam("nomeduc") String nomeduc, @RequestParam("yearrapport") String yearrapport,
 			HttpServletRequest request) {
+		passageRepository.findPassage ( null , null );
 		String jwt = request.getHeader ( SecurityConstants.HEADER_STRING );
 		Object principal = SecurityContextHolder.getContext ( ).getAuthentication ( ).getPrincipal ( );
 		String username;
