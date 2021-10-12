@@ -48,6 +48,7 @@ public class ActiGestionApplication implements CommandLineRunner {
 		 * accountService.addRolesToUser ( "admin" , "ADMIN" );
 		 * accountService.addRolesToUser ( "user" , "USER" );
 		 */
+
 	}
 
 }
