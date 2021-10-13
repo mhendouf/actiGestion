@@ -24,19 +24,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		/*
-		 * response.addHeader ( "Access-Control-Allow-Origin" , "*" );
-		 * response.addHeader ( "Access-Control-Allow-Methods" , "PUT, DELETE, OPTIONS"
-		 * ); response.addHeader ( "Access-Control-Allow-Headers" ,
-		 * "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization"
-		 * ); response.addHeader ( "Access-Control-Expose-Headers" ,
-		 * "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization"
-		 * );
-		 */
+
 		response.addHeader ( "Access-Control-Allow-Origin" , "*" );
-		response.addHeader ( "Access-Control-Allow-Methods" , "PUT, DELETE, OPTIONS, POST" );
-		response.addHeader ( "Access-Control-Allow-Headers" , "*" );
-		response.addHeader ( "Access-Control-Expose-Headers" , "*" );
+		response.addHeader ( "Access-Control-Allow-Methods" , "PUT, DELETE, OPTIONS" );
+		response.addHeader ( "Access-Control-Allow-Headers" ,
+				"Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization" );
+		response.addHeader ( "Access-Control-Expose-Headers" ,
+				"Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization" );
+
 		String jwt = request.getHeader ( SecurityConstants.HEADER_STRING );
 		try {
 			if (request.getMethod ( ).equals ( "OPTIONS" )) {
