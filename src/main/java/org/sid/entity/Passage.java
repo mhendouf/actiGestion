@@ -23,7 +23,7 @@ public class Passage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private Date passageDate;
+	private Date passage_date;
 	private Long idBenevole;
 	private Long idActi;
 

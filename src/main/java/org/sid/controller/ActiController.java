@@ -16,6 +16,7 @@ import org.sid.entity.Benevole;
 import org.sid.entity.Passage;
 import org.sid.exception.RessourceNotFoundException;
 import org.sid.repository.ActiRepository;
+import org.sid.repository.BenevoleRepository;
 import org.sid.repository.PassageRepository;
 import org.sid.service.ActiRapport;
 import org.sid.service.ExportActiPdf;
@@ -49,6 +50,8 @@ public class ActiController {
 	ActiRapport actiRapport;
 	@Autowired
 	PassageRepository passageRepository;
+	@Autowired
+	BenevoleRepository benevoleRepository;
 
 	@GetMapping("/acti")
 	public List<Acti> getActis(HttpServletRequest request) {
@@ -98,8 +101,10 @@ public class ActiController {
 
 		Acti acti = actiRepository.findById ( actiId )
 				.orElseThrow ( () -> new RessourceNotFoundException ( "Acti introuvable" ) );
+		Passage p = passageRepository.findByIdActi ( actiId );
 
 		actiRepository.delete ( acti );
+		passageRepository.delete ( p );
 		Map<String, Boolean> map = new HashMap<> ( );
 		map.put ( "Acti Supprimé" , Boolean.TRUE );
 		return map;
@@ -200,7 +205,7 @@ public class ActiController {
 	public ResponseEntity<InputStreamResource> ActiRapport(@RequestParam("nomresponsable") String nomresponsable,
 			@RequestParam("nomeduc") String nomeduc, @RequestParam("yearrapport") String yearrapport,
 			HttpServletRequest request) {
-		passageRepository.findPassage ( null , null );
+
 		String jwt = request.getHeader ( SecurityConstants.HEADER_STRING );
 		Object principal = SecurityContextHolder.getContext ( ).getAuthentication ( ).getPrincipal ( );
 		String username;
@@ -209,12 +214,16 @@ public class ActiController {
 		} else {
 			username = principal.toString ( );
 		}
-		Date d = new Date ( "01/01/" + yearrapport );
+		Date d = new Date ( "1/1/" + yearrapport );
 		List<Acti> actis = actiRepository.findByYear ( d , username );
-		ByteArrayInputStream bais = actiRapport.actiPDFreport ( actis , nomresponsable , nomeduc , yearrapport );
+		List<Benevole> benevoles = benevoleRepository.findByIdUser ( username );
+
+		ByteArrayInputStream bais = actiRapport.actiPDFreport ( actis , nomresponsable , nomeduc , yearrapport ,
+				benevoles );
 		HttpHeaders headers = new HttpHeaders ( );
 		headers.add ( "Content-Disposition" , "filename=Actis.pdf" );
 		return ResponseEntity.ok ( ).headers ( headers ).contentType ( MediaType.APPLICATION_PDF )
 				.body ( new InputStreamResource ( bais ) );
 	}
+
 }
