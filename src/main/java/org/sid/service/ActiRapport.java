@@ -229,7 +229,7 @@ public class ActiRapport {
 			Paragraph p = new Paragraph ( "SAMU SOCIAL" , fontIntro );
 			p.setSpacingBefore ( 40 );
 			document.add ( p );
-			document.add ( new Paragraph ( "Boulevard Poincare 68, 170 Bruxelles" , fontIntro ) );
+			document.add ( new Paragraph ( "Boulevard Poincare 68, 1070 Bruxelles" , fontIntro ) );
 			document.add ( new Paragraph ( "02/5511220-0800/99.340" , fontIntro ) );
 			document.add ( new Paragraph ( "info@samusocial.be" , fontIntro ) );
 			Paragraph titre = new Paragraph ( "RAPPORT DES ACTIVITÉS CENTRE LOUIZA " + yearrapport , fontTitre );
