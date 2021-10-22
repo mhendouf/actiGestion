@@ -176,7 +176,7 @@ public class ActiController {
 		Optional<Acti> actiInfo = actiRepository.findById ( id );
 		Acti acti = actiInfo.get ( );
 		Collection<Benevole> listBenevole = acti.getBenevoles_list ( );
-		Date now = new Date ( );
+		Date now = acti.getDate_acti ( );
 		for (Benevole b : listBenevole) {
 			Passage p = new Passage ( null , now , b.getId ( ) , acti.getId ( ) );
 			passageRepository.save ( p );
