@@ -23,5 +23,5 @@ public interface PassageRepository extends JpaRepository<Passage, Long> {
 	List<Passage> findNbByMonth(Long idBenevole, Date d, Date dy);
 
 	@Query(value = "SELECT passage FROM Passage passage where passage.idActi= :idActi")
-	Passage findByIdActi(Long idActi);
+	List<Passage> findByIdActi(Long idActi);
 }

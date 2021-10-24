@@ -101,10 +101,13 @@ public class ActiController {
 
 		Acti acti = actiRepository.findById ( actiId )
 				.orElseThrow ( () -> new RessourceNotFoundException ( "Acti introuvable" ) );
-		Passage p = passageRepository.findByIdActi ( actiId );
+		List<Passage> psg = passageRepository.findByIdActi ( actiId );
 
 		actiRepository.delete ( acti );
-		passageRepository.delete ( p );
+		for (Passage p : psg) {
+			passageRepository.delete ( p );
+		}
+
 		Map<String, Boolean> map = new HashMap<> ( );
 		map.put ( "Acti Supprimé" , Boolean.TRUE );
 		return map;
