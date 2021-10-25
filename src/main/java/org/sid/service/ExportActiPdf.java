@@ -86,12 +86,12 @@ public class ExportActiPdf {
 			for (Acti s : actis) {
 
 				s.getDate_acti ( ).setHours ( s.getDate_acti ( ).getHours ( ) + 2 );
+				s.getDate_acti_fin ( ).setHours ( s.getDate_acti_fin ( ).getHours ( ) + 2 );
 				String date = simpleDateFormat.format ( s.getDate_acti ( ) );
 				String heure = simpleDateFormatHeure.format ( s.getDate_acti ( ) );
 				String heureEn = formaterEnglish.format ( s.getDate_acti ( ) );
 				String heureFinEn = formaterEnglish.format ( s.getDate_acti_fin ( ) );
 				String heureFin = simpleDateFormatHeure.format ( s.getDate_acti_fin ( ) );
-
 				com.itextpdf.text.Font fonttitre = FontFactory.getFont ( FontFactory.COURIER_BOLD , 16 ,
 						BaseColor.ORANGE );
 				com.itextpdf.text.Font fonttitreP = FontFactory.getFont ( FontFactory.HELVETICA_BOLDOBLIQUE , 16 ,
