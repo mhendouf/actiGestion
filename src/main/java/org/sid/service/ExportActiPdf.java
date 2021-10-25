@@ -61,9 +61,9 @@ public class ExportActiPdf {
 			String patternHeure = "HH'h'mm";
 			String patternDu = "dd-MMMM";
 			String patternAu = "dd-MMMM-yyyy";
-			SimpleDateFormat formaterEnglish = new SimpleDateFormat ( "h:mm a" );
-			SimpleDateFormat simpleDateFormatHeure = new SimpleDateFormat ( patternHeure );
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat ( pattern );
+			SimpleDateFormat formaterEnglish = new SimpleDateFormat ( "h:mm a" , Locale.FRENCH );
+			SimpleDateFormat simpleDateFormatHeure = new SimpleDateFormat ( patternHeure , Locale.FRENCH );
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat ( pattern , Locale.FRENCH );
 			SimpleDateFormat simpleDateFormatDu = new SimpleDateFormat ( patternDu , Locale.FRENCH );
 
 			SimpleDateFormat simpleDateFormatAu = new SimpleDateFormat ( patternAu , Locale.FRENCH );

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sid.entity.Acti;
@@ -64,7 +65,7 @@ public class ActiRapport {
 	private void GenererTableInfoPassageBenevole(PdfPTable tableActis, Map<Benevole, Map> mpBene, Document document)
 			throws DocumentException {
 		com.itextpdf.text.Font font = FontFactory.getFont ( FontFactory.HELVETICA_BOLDOBLIQUE , 12 , BaseColor.WHITE );
-		SimpleDateFormat formater = new SimpleDateFormat ( "MMMM" );
+		SimpleDateFormat formater = new SimpleDateFormat ( "MMMM" , Locale.FRENCH );
 		Map<String, Integer> mapmois = new HashMap<String, Integer> ( );
 		PdfPCell cell = new PdfPCell ( );
 		for (Map.Entry mapentry : mpBene.entrySet ( )) {
@@ -147,7 +148,7 @@ public class ActiRapport {
 	}
 
 	private void EcrireTable(PdfPTable tableActis, List<Acti> actis) {
-		SimpleDateFormat formater = new SimpleDateFormat ( "dd/MM/yyyy" );
+		SimpleDateFormat formater = new SimpleDateFormat ( "dd/MM/yyyy" , Locale.FRENCH );
 		List lDate = new ArrayList ( );
 		for (Acti a : actis) {
 			String bene = "";
@@ -171,7 +172,7 @@ public class ActiRapport {
 	}
 
 	private void EcrireTableBenevole(PdfPTable tableActis, List<Benevole> benevole) {
-		SimpleDateFormat formater = new SimpleDateFormat ( "dd/MM/yyyy" );
+		SimpleDateFormat formater = new SimpleDateFormat ( "dd/MM/yyyy" , Locale.FRENCH );
 		List lDate = new ArrayList ( );
 		for (Benevole b : benevole) {
 			String bene = "";
@@ -185,7 +186,7 @@ public class ActiRapport {
 	}
 
 	private void GenererMapBenevole(Map<Benevole, Map> mpBene, List<Benevole> benevoles, String yearrapport) {
-		SimpleDateFormat formater = new SimpleDateFormat ( "MMMM" );
+		SimpleDateFormat formater = new SimpleDateFormat ( "MMMM" , Locale.FRENCH );
 		Map<String, Integer> mapmois = new HashMap<String, Integer> ( );
 		int year = new Integer ( yearrapport );
 		int mois = 1;
