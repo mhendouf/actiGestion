@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.sid.entity.Acti;
 import org.springframework.stereotype.Service;
@@ -63,8 +64,9 @@ public class ExportActiPdf {
 			SimpleDateFormat formaterEnglish = new SimpleDateFormat ( "h:mm a" );
 			SimpleDateFormat simpleDateFormatHeure = new SimpleDateFormat ( patternHeure );
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat ( pattern );
-			SimpleDateFormat simpleDateFormatDu = new SimpleDateFormat ( patternDu );
-			SimpleDateFormat simpleDateFormatAu = new SimpleDateFormat ( patternAu );
+			SimpleDateFormat simpleDateFormatDu = new SimpleDateFormat ( patternDu , Locale.FRENCH );
+
+			SimpleDateFormat simpleDateFormatAu = new SimpleDateFormat ( patternAu , Locale.FRENCH );
 			String dateDu = simpleDateFormatDu.format ( du );
 			String dateAu = simpleDateFormatAu.format ( au );
 			com.itextpdf.text.Font fontdate = FontFactory.getFont ( FontFactory.HELVETICA_BOLDOBLIQUE , 16 ,
